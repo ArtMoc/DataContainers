@@ -6,7 +6,7 @@ using std::endl;
 
 #define tab "\t"
 #define delimiter "\n----------------------------------\n"
-#define DEBUG
+//#define DEBUG
 
 class Element
 {
@@ -80,6 +80,10 @@ public:
 	{
 		return this->Temp != other.Temp;
 	}
+	operator bool()const
+	{
+		return Temp;
+	}
 };
 
 class ForwardList
@@ -91,6 +95,17 @@ public:
 	{
 		return Head;
 	}
+
+	Iterator begin()
+	{
+		return Head;
+	}
+	Iterator end()
+	{
+		return nullptr;
+	}
+
+	//                       CONSTRUCTORS:
 	ForwardList()
 	{
 		this->Head = nullptr;// если голова указывает на 0, значит список пуст
@@ -239,15 +254,20 @@ public:
 ForwardList operator+(const ForwardList& left, const ForwardList& right)
 {
 	ForwardList result = left;
-	for (Element* Temp = right.getHead(); Temp; Temp = Temp->get_pNext())//проходим по правому списку
-		result.push_back(Temp->getData());//и добавляем все его элементы в конец результата
+	//for (Element* Temp = right.getHead(); Temp; Temp = Temp->get_pNext())//проходим по правому списку
+		//result.push_back(Temp->getData());//и добавляем все его элементы в конец результата
+	for (Iterator Temp = right.getHead(); Temp; Temp++)
+	{
+		result.push_back(*Temp);
+	}
 	return result;
 }
 
 //#define BASE_CHECK
 //#define COUNT_CHECK
 //#define COPY_METHODS_CHECK
-
+//#define OPERATOR_PLUS_CHECK
+//#define RANGE_BASED_FOR_ARR
 
 void main()
 {
@@ -317,14 +337,35 @@ void main()
 	list2.print();
 #endif // COPY_METHODS_CHECK
 
-	/*int arr[] = { 3,5,8,13,21 };
-	for (int i = 0; i < sizeof(arr) / sizeof(int); i++)cout << arr[i] << tab;
-	cout << endl;*/
-
+#ifdef OPERATOR_PLUS_CHECK
 	ForwardList list1 = { 3, 5,8,13,21 };
-	list1.print(); 
+	list1.print();
 	ForwardList list2 = { 34,55,89 };
 	list2.print();
 	ForwardList list3 = list1 + list2;
 	list3.print();
+#endif // OPERATOR_PLUS_CHECK
+
+#ifdef RANGE_BASED_FOR_ARR
+	int arr[] = { 3,5,8,13,21 };
+	for (int i = 0; i < sizeof(arr) / sizeof(int); i++)
+		cout << arr[i] << tab;
+	cout << endl;
+
+	//                           RANGE-BASED FOR:
+	for (int i : arr)
+	{
+		cout << i << tab;
+	}
+	cout << endl;
+#endif // RANGE_BASED_FOR_ARR
+
+	ForwardList list = { 3,5,8,13,21 };
+	cout << "\n----------------------------------\n";
+	for (int i : list)
+	{
+		cout << i << tab;
+	}
+	cout << endl;
+	cout << "\n----------------------------------\n";
 }
