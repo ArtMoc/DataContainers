@@ -8,6 +8,8 @@ using std::endl;
 #define delimiter "\n----------------------------------\n"
 //#define DEBUG
 
+
+
 class Element
 {
 	int Data; //значение элемента
