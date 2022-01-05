@@ -207,13 +207,6 @@ public:
 		// 0) доходим до нужного элемента
 		Element* Temp = Head;
 		for (int i = 0; i < Index - 1; i++)Temp = Temp->pNext;
-		// 1) создаем новый элемент
-		//Element* New = new Element(Data);
-		// осуществялем вставку нового элемента
-		// 2) привязываем новый элемень к списку 
-		//New->pNext = Temp->pNext;
-		// 3) включаем элемент в список
-		//Temp->pNext = New;
 		Temp->pNext = new Element(Data, Temp->pNext);
 		size++;
 	}
